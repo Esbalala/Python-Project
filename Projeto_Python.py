@@ -1,13 +1,25 @@
+import string
+
 #Criar uma lista com dicionários:
-meu_dicionario = [{
+meu_dicionario = {
+    "person1": {
     "nome": "Joao",
     "idade": 25,
     "cidade": "Porto"
-}]
+    }
+}
+
+print(meu_dicionario["person1"]["nome"])
  
 #Adicionar um novo dicionário á lista:
-meu_dicionario.append({"nome":"Maria", "idade":30, "cidade":"Lisboa"})
+meu_dicionario["person2"] = {
+    "nome": "Maria",
+    "idade": 30,
+    "cidade": "Lisboa"
+}
+
 print(meu_dicionario)
+print(meu_dicionario["person1"]["idade"])
 
 #Verifica se um username já existe, True se existe
 def user_exists(user):
@@ -27,6 +39,14 @@ def registar_utilizador():
         username = input("Username: ")
 
     password = input("Password: ") #COLOCAR LIMITACOES!!!
+    while (len(password)<8 or password.islower() or password.isupper() or all(ch in string.punctuation for ch in password) or \
+           all(ch in string.digits for ch in password)):
+        input("Password inválida!" \
+        "Password tem de seguir estes requisitos:" \
+        "Tamanho mínimo: 8" \
+        "Pelo menos 1 minúscula e 1 maiúscula" \
+        "Pelo menos 1 número" \
+        "Pelo menos 1 caracter especial")
 
 
 
