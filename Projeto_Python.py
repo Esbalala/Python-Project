@@ -2,24 +2,17 @@ import string
 
 #Criar uma lista com dicionários:
 meu_dicionario = {
-    "person1": {
-    "nome": "Joao",
-    "idade": 25,
-    "cidade": "Porto"
-    }
+    1 : {"nome": "Ana", "idade": 28, "cidade": "Porto", "password": "abc"},
+    2 : {"nome": "Joao", "idade": 35, "cidade": "Lisboa", "password": "123"},
+    3 : {"nome": "Marta", "idade": 22, "cidade": "Coimbra", "password": "xyz"}
 }
 
-print(meu_dicionario["person1"]["nome"])
+print(meu_dicionario[1]["nome"])
  
-#Adicionar um novo dicionário á lista:
-meu_dicionario["person2"] = {
-    "nome": "Maria",
-    "idade": 30,
-    "cidade": "Lisboa"
-}
+
 
 print(meu_dicionario)
-print(meu_dicionario["person1"]["idade"])
+print(meu_dicionario[1]["idade"])
 
 #Verifica se um username já existe, True se existe
 def user_exists(user):
@@ -48,13 +41,55 @@ def registar_utilizador():
         "Pelo menos 1 número" \
         "Pelo menos 1 caracter especial")
 
+def editar_utilizador():
+    username = input(f"Insira o username:")
 
+    print(f"1: Editar nome")
+    print(f"2: Editar idade")
+    print(f"3: Editar cidade")
+    print(f"4: Editar password")
+    print(f"5: Listar utilizador")
+    
+    opcao = input(f"O que pretende editar? \n")
+    
+
+    for id,data in meu_dicionario.items():
+        
+        if data["nome"] == username:
+            user_id = id
+
+    match(opcao):
+        case "1":
+            novo_nome = input(f"Insira o novo nome: ")
+            meu_dicionario[user_id]["nome"] = novo_nome
+            print("Nome atualizado com sucesso.")
+        case "2":
+            nova_idade = input(f"Insira nova idade: ")
+            meu_dicionario[user_id]["idade"] = nova_idade
+            print("Idade atualizada com sucesso.")
+        case "3":
+            nova_cidade = input(f"Insira nova idade: ")
+            meu_dicionario[user_id]["cidade"] = nova_cidade
+            print("Cidade atualizada com sucesso.")
+        case "4":
+            nova_password = input(f"Insira nova password: ")
+            meu_dicionario[user_id]["password"] = nova_password
+            print("Password atualizada com sucesso.")
+        case "5":
+            print(f"Nome utilizador: {meu_dicionario[user_id]["nome"]} ")
+            print(f"Idade utilizador: {meu_dicionario[user_id]["idade"]} ")
+            print(f"Cidade utilizador: {meu_dicionario[user_id]["cidade"]} ")
+   
+def listar_users():
+        for username in meu_dicionario:
+            print(f"Nome utilizador: {meu_dicionario[username]["nome"]} \n")
 
 def menu():
     while True:
         print("Menu Principal")
         print("1. Registar novo utilizador")
         print("2. Editar utilizador")
+        print("3. Listar Utilizadores")
         print("0. Sair")
 
         opcao = input("Insira o número da opção que pretende:\n")
@@ -63,11 +98,16 @@ def menu():
             registar_utilizador()
         elif opcao == '2':
             editar_utilizador()
+        elif opcao == '3':
+            listar_users()
         elif opcao == '0':
             break
         else:
             print("Opção errada! Por favor coloque uma opção válida")
 
     print("Obrigado por utilizar o nosso programa :D")
+
+
+
 
 menu()
