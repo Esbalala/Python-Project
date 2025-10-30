@@ -29,7 +29,7 @@
     - [x] Mudar cidade
     - [x] Mudar password
         - [ ] Encriptação da password   (EXTRA)
-    - [ ] Remover utilizador do sistema
+    - [x] Remover utilizador do sistema
 
 ## IDEIAS
 - Interface Gráfica para o Menu
