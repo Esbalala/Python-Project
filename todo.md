@@ -11,7 +11,7 @@
     - [x] Verificação se já existe esse username
 - [x] Pedir idade ao utilizador
 - [x] Pedir cidade ao utilizador
-    - [ ] Apresentar uma lista de cidades possíveis para o utilizador escolher (OPCIONAL)
+    - [x] Apresentar uma lista de cidades possíveis para o utilizador escolher (OPCIONAL)
 - [x] Pedir password ao utilizador
     - [x] Mais de 8 caracteres
     - [x] Tem de ter pelo menos 1 maiúscula e 1 minúscula
@@ -22,7 +22,7 @@
 
 ## Função Editar Utilizador
 - [x] Pedir username de pesquisa ao utilizador
-    - [ ] Escrever "1" para listar todos os utilizadores do sistema
+    - [x] Escrever "listar_users" para listar todos os utilizadores do sistema
 - [x] Mini-menu sobre o que fazer com o utilizador selecionado
     - [x] Mudar username
     - [x] Mudar idade
@@ -30,7 +30,6 @@
     - [x] Mudar password
         - [ ] Encriptação da password   (EXTRA)
     - [ ] Remover utilizador do sistema
-    - [ ] Remover utilizador
 
 ## IDEIAS
 - Interface Gráfica para o Menu

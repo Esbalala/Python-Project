@@ -1,20 +1,40 @@
 import string
-import os   
+import os
 import platform
+from pwinput import pwinput
+from time import sleep
 
 cidades_portugal = ["Lisboa", "Porto", "Vila Nova de Gaia", "Amadora", "Braga", "Coimbra", "Funchal", "Setúbal", "Almada",
     "Aveiro", "Leiria", "Évora", "Viseu", "Faro", "Guimarães", "Barreiro", "Viana do Castelo","Torres Vedras", "Oeiras",
     "Cascais", "Matosinhos", "Maia", "Sintra", "Loures", "Ponta Delgada", "Covilhã", "Beja", "Santarém", "Tomar", "Loulé", "Fora de Portugal"
 ]
-#Criar uma lista com dicionários:
+
+#Criar um dicionário de dicionários, adicionado 3 entradas dummy
 meu_dicionario = {
     1: {
     "nome": "Joao",
     "idade": 25,
     "cidade": "Porto",
     "password": "password123"
+    },
+    2: {
+    "nome": "Maria",
+    "idade": 30,
+    "cidade": "Lisboa",
+    "password": "password123"
+    },
+    3: {
+    "nome": "Pedro",
+    "idade": 15,
+    "cidade": "Coimbra",
+    "password": "password123"
     }
 }
+
+def listar_users():
+    for username in meu_dicionario:
+        print(f"Nome utilizador: {meu_dicionario[username]["nome"]}")
+    #sleep(3)
 
 def add_user(username, age, city, password):
     meu_dicionario[len(meu_dicionario)+1] = {
@@ -42,23 +62,13 @@ def registar_utilizador():
             "Por favor introduza outro username")
         username = input("Username: ")
 
-    password = input("Password: ") #COLOCAR LIMITACOES!!!
-    while (len(password)<8 or password.islower() or password.isupper() or all(ch in string.punctuation for ch in password) or \
-           all(ch in string.digits for ch in password)):
-        input("Password inválida!" \
-        "Password tem de seguir estes requisitos:" \
-        "Tamanho mínimo: 8" \
-        "Pelo menos 1 minúscula e 1 maiúscula" \
-        "Pelo menos 1 número" \
-        "Pelo menos 1 caracter especial")
-    
     os.system('cls') if platform.system() == "Windows" else os.system('clear')
     age = input("Insira a sua idade: ")
     while not age.isdigit() or int(age) < 0:
         os.system('cls') if platform.system() == "Windows" else os.system('clear')
-        age = input("A idade tem de ser um número maior que 0:\n" \
-        "Idade: ")
-    
+        print("A idade tem de conter apenas números e tem de ser um número maior que 0")
+        age = input("Idade: ")
+
     os.system('cls') if platform.system() == "Windows" else os.system('clear')
     city = input("Insira a sua cidade: ")
     while (any(not ch.isalpha() and not ch == " " for ch in city)) or city.lower() not in (c.lower() for c in cidades_portugal):
@@ -68,19 +78,18 @@ def registar_utilizador():
         city = input("Cidade: ")
 
     os.system('cls') if platform.system() == "Windows" else os.system('clear')
-    password = input("Password: ")
+    password = pwinput()
     while (len(password)<8 or password.islower() or password.isupper() or \
            not any(ch in string.punctuation for ch in password) or \
            not any(ch.isdigit() for ch in password)):
         os.system('cls') if platform.system() == "Windows" else os.system('clear')
-        password=input("Password inválida!\n" \
+        print("Password inválida!\n" \
         "Password tem de seguir estes requisitos:\n" \
         "Tamanho mínimo: 8\n" \
         "Pelo menos 1 minúscula e 1 maiúscula\n" \
         "Pelo menos 1 número\n" \
-        "Pelo menos 1 caracter especial\n" \
-        "Password: ")
-    print("Password válida!")
+        "Pelo menos 1 caracter especial")
+        password=pwinput()
 
     os.system('cls') if platform.system() == "Windows" else os.system('clear')
     add_user(username, age, city, password)
@@ -88,58 +97,96 @@ def registar_utilizador():
     print(f"O utilizador {username} for registado com sucesso!")
 
 def editar_utilizador():
-    username = input(f"Insira o username:")
+    print("Bem-vindo à página de edição de utilizador")
+    while True:
+        print("Escreva 'listar_users' para mostrar todos os utilizadores do sistema\n" \
+            "Escreva '0' para sair da página de edição")
+        username = input("Insira o username: ")
 
-    print(f"1: Editar nome")
-    print(f"2: Editar idade")
-    print(f"3: Editar cidade")
-    print(f"4: Editar password")
-    print(f"5: Listar utilizador")
-    
-    opcao = input(f"O que pretende editar? \n")
-    
+        if username == '0':
+            break
 
-    for id,data in meu_dicionario.items():
+        while True:
+            if username.lower() == 'listar_users':
+                listar_users()
+                username = input("Insira o username: ")
+            elif not user_exists(username):
+                username = input("Username não foi encontrado no sistema\n" \
+                "Por favor introduza um username presente no sistema(escreva 'listar_users' para mostrar todos os utilizadores do sistema): ")
+            else:   #Username presente no sistema
+                break
+
+        print("1: Editar nome\n" \
+        "2: Editar idade\n" \
+        "3: Editar cidade\n" \
+        "4: Editar password\n" \
+        "5: Listar informações do utilizador\n" \
+        "6: Remover utilizador\n" \
+        "0: Sair")
         
-        if data["nome"] == username:
-            user_id = id
+        opcao = input("O que pretende editar? ")
+        os.system('cls') if platform.system() == "Windows" else os.system('clear')
+        while True:
+            while opcao not in ['1','2','3','4','5','6','0']:
+                print("1: Editar nome\n" \
+                "2: Editar idade\n" \
+                "3: Editar cidade\n" \
+                "4: Editar password\n" \
+                "5: Listar informações do utilizador\n" \
+                "6: Remover utilizador\n" \
+                "0: Sair")
+                opcao = input("Por favor introduza uma opção válida: ")
+            
+            for id,data in meu_dicionario.items():
+                if data["nome"] == username:
+                    user_id = id
 
-    match(opcao):
-        case "1":
-            novo_nome = input(f"Insira o novo nome: ")
-            meu_dicionario[user_id]["nome"] = novo_nome
-            print("Nome atualizado com sucesso.")
-        case "2":
-            nova_idade = input(f"Insira nova idade: ")
-            meu_dicionario[user_id]["idade"] = nova_idade
-            print("Idade atualizada com sucesso.")
-        case "3":
-            nova_cidade = input(f"Insira nova idade: ")
-            meu_dicionario[user_id]["cidade"] = nova_cidade
-            print("Cidade atualizada com sucesso.")
-        case "4":
-            nova_password = input(f"Insira nova password: ")
-            meu_dicionario[user_id]["password"] = nova_password
-            print("Password atualizada com sucesso.")
-        case "5":
-            print(f"Nome utilizador: {meu_dicionario[user_id]["nome"]} ")
-            print(f"Idade utilizador: {meu_dicionario[user_id]["idade"]} ")
-            print(f"Cidade utilizador: {meu_dicionario[user_id]["cidade"]} ")
-   
-def listar_users():
-        for username in meu_dicionario:
-            print(f"Nome utilizador: {meu_dicionario[username]["nome"]} \n")
+            match(opcao):
+                case "1":
+                    novo_nome = input(f"Insira o novo nome: ")  #ADICIONAR CHECKS
+                    meu_dicionario[user_id]["nome"] = novo_nome
+                    print("Nome atualizado com sucesso.")
+                case "2":
+                    nova_idade = input(f"Insira nova idade: ")  #ADICIONAR CHECKS
+                    meu_dicionario[user_id]["idade"] = nova_idade
+                    print("Idade atualizada com sucesso.")
+                case "3":
+                    nova_cidade = input(f"Insira nova cidade: ")    #ADICIONAR CHECKS
+                    meu_dicionario[user_id]["cidade"] = nova_cidade
+                    print("Cidade atualizada com sucesso.")
+                case "4":
+                    nova_password = input(f"Insira nova password: ")    #ADICIONAR CHECKS
+                    meu_dicionario[user_id]["password"] = nova_password
+                    print("Password atualizada com sucesso.")
+                case "5":
+                    print(f"Nome utilizador: {meu_dicionario[user_id]["nome"]} ")
+                    print(f"Idade utilizador: {meu_dicionario[user_id]["idade"]} ")
+                    print(f"Cidade utilizador: {meu_dicionario[user_id]["cidade"]} ")
+                    print(f"Password: {meu_dicionario[user_id]["password"]}")
+                    saida = ""
+                    while saida.lower() != "sair":
+                        saida=input(f"Escreva 'sair' para parar de ver as informações de {meu_dicionario[user_id]["nome"]}: ")
+                case "6":
+                    while opcao.lower() not in ["sim", "nao", "s", "n"]:
+                        opcao = input("Tem a certeza que quer remover o utilizador do sistema? [s/n]: ")
+                    if opcao in ["sim","s"]:
+                        meu_dicionario.pop(user_id)
+                        break
+                case "0":
+                    break
+            opcao="dummy"
 
 
 def menu():
     while True:
-        print("==========================================")
-        print("Menu Principal")
-        print("1. Registar novo utilizador")
-        print("2. Editar utilizador")
-        print("3. Listar Utilizadores")
-        print("0. Sair")
-        print("==========================================")
+        print("==========================================\n" \
+        "Menu Principal\n" \
+        "1. Registar novo utilizador\n" \
+        "2. Editar utilizador\n" \
+        "3. Listar utilizadores no sistema\n" \
+        "0. Sair\n" \
+        "==========================================")
+        #4. Encriptar passwords
 
         opcao = input("Insira o número da opção que pretende: ")
         
