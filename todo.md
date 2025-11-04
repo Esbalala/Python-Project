@@ -3,6 +3,7 @@
 - [x] Ciclo while
 - [x] Registar novo utilizador
 - [x] Editar Utilizador
+- [x] Listar utilizadores no sistema com possibilidade de decriptar passwords
 - [x] Sair
 
 ## Função Registar Novo Utilizador
@@ -17,7 +18,7 @@
     - [x] Tem de ter pelo menos 1 maiúscula e 1 minúscula
     - [x] Tem de conter pelo menos 1 número
     - [x] Tem de conter pelo menos 1 caractere especial (string.punctuation)
-- [ ] Chamada de uma função para encriptar a password   (EXTRA)
+- [x] Modificar password mestre para decriptar passwords
 - [x] Adicionar o utilizador criado ao dicionário
 
 ## Função Editar Utilizador
@@ -28,10 +29,10 @@
     - [x] Mudar idade
     - [x] Mudar cidade
     - [x] Mudar password
-        - [ ] Encriptação da password   (EXTRA)
+        - [x] Possibilidade de mostrar password em plaintext
     - [x] Remover utilizador do sistema
 
 ## IDEIAS
 - Interface Gráfica para o Menu
-- Encriptação da password
+- Encriptação da password (FEITO)
 - Login com utilizadores, criar páginas default para utilizadores
